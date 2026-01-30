@@ -22,6 +22,10 @@ build-logic/*/bin/
 /extra/*/bin/
 /extra/*/.factorypath
 /extra/*/.apt_generated/
+/extra/*/.apt_generated_tests/
+/extra/*/ap/.settings/
+/extra/*/ap/.factorypath
+/extra/*/ap/bin/
 /format/*/.apt_generated_tests/
 /extra/*/.checkstyle
 /extra/*/.settings/
