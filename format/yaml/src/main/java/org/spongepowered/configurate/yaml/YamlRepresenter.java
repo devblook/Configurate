@@ -92,16 +92,20 @@ final class YamlRepresenter extends Representer {
             } else {
                 final Node optionNode = represent(node.rawScalar());
                 final org.spongepowered.configurate.yaml.@Nullable ScalarStyle requestedStyle
-                    = node.ownHint(YamlConfigurationLoader.SCALAR_STYLE);
+                    = node.hint(YamlConfigurationLoader.SCALAR_STYLE);
                 if (optionNode instanceof ScalarNode && requestedStyle != null) {
                     final ScalarNode scalar = (ScalarNode) optionNode;
-                    yamlNode = new ScalarNode(
-                        scalar.getTag(),
-                        scalar.getValue(),
-                        scalar.getStartMark(),
-                        scalar.getEndMark(),
-                        org.spongepowered.configurate.yaml.ScalarStyle.asSnakeYaml(requestedStyle, scalar.getScalarStyle())
-                    );
+                    if (scalar.getTag() != Tag.STR && (requestedStyle == org.spongepowered.configurate.yaml.ScalarStyle.DOUBLE_QUOTED || requestedStyle == org.spongepowered.configurate.yaml.ScalarStyle.SINGLE_QUOTED)) {
+                        yamlNode = optionNode;
+                    } else {
+                        yamlNode = new ScalarNode(
+                            scalar.getTag(),
+                            scalar.getValue(),
+                            scalar.getStartMark(),
+                            scalar.getEndMark(),
+                            org.spongepowered.configurate.yaml.ScalarStyle.asSnakeYaml(requestedStyle, scalar.getScalarStyle())
+                        );
+                    }
                 } else {
                     yamlNode = optionNode;
                 }
