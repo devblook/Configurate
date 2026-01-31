@@ -95,7 +95,9 @@ final class YamlRepresenter extends Representer {
                     = node.hint(YamlConfigurationLoader.SCALAR_STYLE);
                 if (optionNode instanceof ScalarNode && requestedStyle != null) {
                     final ScalarNode scalar = (ScalarNode) optionNode;
-                    if (scalar.getTag() != Tag.STR && (requestedStyle == org.spongepowered.configurate.yaml.ScalarStyle.DOUBLE_QUOTED || requestedStyle == org.spongepowered.configurate.yaml.ScalarStyle.SINGLE_QUOTED)) {
+                    if (!scalar.getTag().equals(Tag.STR)
+                        && (requestedStyle == org.spongepowered.configurate.yaml.ScalarStyle.DOUBLE_QUOTED
+                            || requestedStyle == org.spongepowered.configurate.yaml.ScalarStyle.SINGLE_QUOTED)) {
                         yamlNode = optionNode;
                     } else {
                         yamlNode = new ScalarNode(
